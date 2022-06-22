@@ -18,7 +18,7 @@
     "mongoose": "^6.4.0"
   },
   "devDependencies": {
-    "@expense-tracer/server": "file:server",
+    "@expense-tracker/server": "file:server",
     "env-cmd": "^10.1.0",
     "nodemon": "^2.0.16"
   }
