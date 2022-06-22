@@ -1,0 +1,25 @@
+{
+  "name": "expense-tracker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "ISC",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "server-dev": "cd server && npm run dev",
+    "server-start": "cd server && npm start"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "mongoose": "^6.4.0"
+  },
+  "devDependencies": {
+    "@expense-tracer/server": "file:server",
+    "env-cmd": "^10.1.0",
+    "nodemon": "^2.0.16"
+  }
+}
