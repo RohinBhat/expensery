@@ -1,7 +1,8 @@
 const express = require("express");
+const cors = require("cors");
+const morgan = require("morgan");
 require("./db/mongoose");
 const { initTrie } = require("./db/trie");
-const cors = require("cors");
 const smsRouter = require("./routers/sms.router");
 
 const app = express();
@@ -11,6 +12,7 @@ initTrie();
 
 app.use(cors());
 app.use(express.json());
+app.use(morgan("tiny"));
 
 app.use("/sms", smsRouter);
 
