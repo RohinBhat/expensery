@@ -1,4 +1,5 @@
-const regexHelper = require("../helpers/regex");
+const { searchTrie } = require("../db/trie");
+const regexHelper = require("../utils/regex");
 
 const extractAmount = (text) => {
   const amtMatches = text.match(regexHelper.amountPattern);
@@ -85,6 +86,12 @@ const parseSMS = async (req, res) => {
   res.send({ messageDetails });
 };
 
+const validateHeader = async (req, res) => {
+  const header = req.body.header;
+  res.send({ isValidHeader: searchTrie(header) });
+};
+
 module.exports = {
   parseSMS,
+  validateHeader,
 };
