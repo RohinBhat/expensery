@@ -1,5 +1,5 @@
 {
-  "name": "expense-tracker",
+  "name": "expensery",
   "version": "1.0.0",
   "main": "index.js",
   "license": "ISC",
@@ -18,7 +18,7 @@
     "mongoose": "^6.4.0"
   },
   "devDependencies": {
-    "@expense-tracker/server": "file:server",
+    "@expensery/server": "file:server",
     "env-cmd": "^10.1.0",
     "nodemon": "^2.0.16"
   }
