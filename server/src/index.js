@@ -5,6 +5,7 @@ require("./db/mongoose");
 const { initTrie } = require("./db/trie");
 const smsRouter = require("./routers/sms.router");
 const userRouter = require("./routers/user.router");
+const transactionRouter = require("./routers/transaction.router");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,6 +18,7 @@ app.use(morgan("tiny"));
 
 app.use("/sms", smsRouter);
 app.use("/user", userRouter);
+app.use("/transaction", transactionRouter);
 
 app.listen(port, () => {
   console.log(`Server is up on port ${port}`);

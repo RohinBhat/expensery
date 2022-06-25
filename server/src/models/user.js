@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Transaction = require("./transaction");
 
 const userSchema = new mongoose.Schema(
   {
@@ -69,6 +70,12 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+userSchema.virtual("transactions", {
+  ref: "Transaction",
+  localField: "_id",
+  foreignField: "user",
+});
+
 userSchema.methods.toJSON = function () {
   const user = this;
   const userObject = user.toObject();
@@ -116,7 +123,7 @@ userSchema.pre("save", async function (next) {
 // Cascade delete tasks if user is deleted
 userSchema.pre("remove", async function (next) {
   const user = this;
-  await Task.deleteMany({ author: user._id });
+  await Transaction.deleteMany({ author: user._id });
   next();
 });
 
