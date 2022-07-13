@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 
+const date = new Date();
+const currentYear = date.getFullYear();
+
 const budgetSchema = new mongoose.Schema(
   {
     user: {
@@ -11,7 +14,7 @@ const budgetSchema = new mongoose.Schema(
       type: Number,
       required: true,
       min: 2016,
-      max: Date.now().year + 1,
+      max: currentYear + 1,
     },
     month: {
       type: Number,
@@ -19,19 +22,11 @@ const budgetSchema = new mongoose.Schema(
       min: 1,
       max: 12,
     },
-    budget: [
-      {
-        category: {
-          type: mongoose.Schema.Types.ObjectId,
-          required: true,
-          ref: "Category",
-        },
-        amount: {
-          type: Number,
-          required: true,
-        },
-      },
-    ],
+    budget: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
   },
   {
     timestamps: true,

@@ -7,8 +7,7 @@ const {
   getBudgetsByIdController,
   updateBudgetByMonthController,
   updateBudgetByIdController,
-  deleteBudgetByMonthController,
-  deleteBudgetByIdController,
+  deleteBudgetController,
 } = require("../controllers/budget.controller");
 const auth = require("../middleware/auth");
 
@@ -16,12 +15,11 @@ const router = express.Router();
 
 router.post("/", auth, createBudgetController);
 router.get("/", auth, getAllBudgetsController);
-router.get("/:year/:month", auth, getBudgetsByMonthController);
-router.get("/:year", auth, getBudgetsByYearController);
+router.get("/month/:year/:month", auth, getBudgetsByMonthController);
+router.get("/year/:year", auth, getBudgetsByYearController);
 router.get("/:id", auth, getBudgetsByIdController);
-router.put("/:year/:month", auth, updateBudgetByMonthController);
-router.put("/:id", auth, updateBudgetByIdController);
-router.delete("/:year/:month", auth, deleteBudgetByMonthController);
-router.delete("/:id", auth, deleteBudgetByIdController);
+router.patch("/month/:year/:month", auth, updateBudgetByMonthController);
+router.patch("/:id", auth, updateBudgetByIdController);
+router.delete("/:id", auth, deleteBudgetController);
 
 module.exports = router;
