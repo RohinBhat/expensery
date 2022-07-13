@@ -3,6 +3,8 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Transaction = require("./transaction");
+const Category = require("./category");
+const Budget = require("./budget");
 
 const userSchema = new mongoose.Schema(
   {
@@ -76,6 +78,18 @@ userSchema.virtual("transactions", {
   foreignField: "user",
 });
 
+userSchema.virtual("categories", {
+  ref: "Category",
+  localField: "_id",
+  foreignField: "user",
+});
+
+userSchema.virtual("budgets", {
+  ref: "Budget",
+  localField: "_id",
+  foreignField: "user",
+});
+
 userSchema.methods.toJSON = function () {
   const user = this;
   const userObject = user.toObject();
@@ -120,10 +134,12 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// Cascade delete tasks if user is deleted
+// Cascade delete transactions, categories and budgets if user is deleted
 userSchema.pre("remove", async function (next) {
   const user = this;
-  await Transaction.deleteMany({ author: user._id });
+  await Transaction.deleteMany({ user: user._id });
+  await Category.deleteMany({ user: user._id });
+  await Budget.deleteMany({ user: user._id });
   next();
 });
 

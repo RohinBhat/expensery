@@ -36,7 +36,7 @@ const getTransactionController = async (req, res) => {
     const transaction = await Transaction.findOne({ _id, user: req.user._id });
     if (!transaction) {
       return res.status(404).send({
-        error: "Transaction not found",
+        error: "Transaction not found!",
       });
     }
     res.send(transaction);
@@ -54,18 +54,18 @@ const updateTransactionController = async (req, res) => {
 
   if (!isValidOperation) {
     return res.status(400).send({
-      error: "Invalid updates",
+      error: "Invalid updates!",
     });
   } else {
     try {
       const transaction = await Transaction.findOne({
         _id: req.params.id,
-        author: req.user._id,
+        user: req.user._id,
       });
 
       if (!transaction) {
         return res.status(404).send({
-          error: "Transaction not found",
+          error: "Transaction not found!",
         });
       }
 
@@ -88,7 +88,7 @@ const deleteTransactionController = async (req, res) => {
 
     if (!transaction) {
       return res.status(404).send({
-        error: "Transaction not found",
+        error: "Transaction not found!",
       });
     }
 
