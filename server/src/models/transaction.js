@@ -25,6 +25,24 @@ const transactionSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
+    date: {
+      type: Number,
+      required: true,
+      min: 1,
+      max: 31,
+    },
+    month: {
+      type: Number,
+      required: true,
+      min: 1,
+      max: 12,
+    },
+    year: {
+      type: Number,
+      required: true,
+      min: 2016,
+      max: Date.now().year + 1,
+    },
   },
   {
     timestamps: true,

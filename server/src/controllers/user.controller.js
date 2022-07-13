@@ -1,4 +1,3 @@
-// const asyncHandler = require("express-async-handler");
 const User = require("../models/user");
 
 const createUserController = async (req, res) => {
@@ -56,7 +55,7 @@ const getUserProfileController = async (req, res) => {
 };
 
 const updateUserController = async (req, res) => {
-  const allowedUpdates = ["name", "email", "age", "password", "phone"];
+  const allowedUpdates = ["name", "email", "password", "phone"];
   const updates = Object.keys(req.body);
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)

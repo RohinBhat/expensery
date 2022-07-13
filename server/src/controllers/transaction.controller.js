@@ -1,8 +1,13 @@
 const Transaction = require("../models/transaction");
 
 const createTransactionController = async (req, res) => {
+  const date = new Date(req.body.timestamp);
+
   const transaction = new Transaction({
     user: req.user._id,
+    date: date.getDate(),
+    month: date.getMonth() + 1,
+    year: date.getFullYear(),
     ...req.body,
   });
 
@@ -25,15 +30,16 @@ const getAllTransactionsController = async (req, res) => {
     });
     res.send(req.user.transactions);
   } catch (error) {
-    res.status(500).send({ error: error.message });
+    res.status(500).send({ error });
   }
 };
 
-const getTransactionController = async (req, res) => {
+const getTransactionByIdController = async (req, res) => {
   const _id = req.params.id;
 
   try {
     const transaction = await Transaction.findOne({ _id, user: req.user._id });
+
     if (!transaction) {
       return res.status(404).send({
         error: "Transaction not found!",
@@ -41,7 +47,62 @@ const getTransactionController = async (req, res) => {
     }
     res.send(transaction);
   } catch (error) {
-    res.status(500).send({ error: error.message });
+    res.status(500).send({ error });
+  }
+};
+
+const getTransactionsByCategoryController = async (req, res) => {
+  try {
+    const transaction = await Transaction.find({
+      category: req.params.category,
+      user: req.user._id,
+    });
+
+    if (!transaction) {
+      return res.status(404).send({
+        error: "Transaction not found!",
+      });
+    }
+    res.send(transaction);
+  } catch (error) {
+    res.status(500).send({ error });
+  }
+};
+
+const getTransactionsByYearController = async (req, res) => {
+  try {
+    const transaction = await Transaction.find({
+      year: req.params.year,
+      user: req.user._id,
+    });
+
+    if (!transaction) {
+      return res.status(404).send({
+        error: "Transaction not found!",
+      });
+    }
+    res.send(transaction);
+  } catch (error) {
+    res.status(500).send({ error });
+  }
+};
+
+const getTransactionsByMonthController = async (req, res) => {
+  try {
+    const transaction = await Transaction.find({
+      month: req.params.month,
+      year: req.params.year,
+      user: req.user._id,
+    });
+
+    if (!transaction) {
+      return res.status(404).send({
+        error: "Transaction not found!",
+      });
+    }
+    res.send(transaction);
+  } catch (error) {
+    res.status(500).send({ error });
   }
 };
 
@@ -74,7 +135,7 @@ const updateTransactionController = async (req, res) => {
 
       res.send(transaction);
     } catch (error) {
-      res.status(500).send({ error: error.message });
+      res.status(500).send({ error });
     }
   }
 };
@@ -94,14 +155,17 @@ const deleteTransactionController = async (req, res) => {
 
     res.send(transaction);
   } catch (error) {
-    res.status(500).send({ error: error.message });
+    res.status(500).send({ error });
   }
 };
 
 module.exports = {
   createTransactionController,
   getAllTransactionsController,
-  getTransactionController,
+  getTransactionByIdController,
+  getTransactionsByCategoryController,
+  getTransactionsByYearController,
+  getTransactionsByMonthController,
   updateTransactionController,
   deleteTransactionController,
 };

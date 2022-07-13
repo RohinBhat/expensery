@@ -27,20 +27,6 @@ const userSchema = new mongoose.Schema(
       },
     },
 
-    age: {
-      type: Number,
-      default: 0,
-      validate(value) {
-        if (value < 0) {
-          throw new Error("Age must be a positive number!");
-        } else if (value > 100) {
-          throw new Error("Age must be less than 100!");
-        } else if (value % 1 !== 0) {
-          throw new Error("Age must be a whole number!");
-        }
-      },
-    },
-
     phone: {
       type: Number,
       required: true,

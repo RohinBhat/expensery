@@ -10,7 +10,7 @@ const categoryRouter = require("./routers/category.router");
 const budgetRouter = require("./routers/budget.router");
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 initTrie();
 

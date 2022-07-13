@@ -21,7 +21,41 @@ const getAllCategoriesController = async (req, res) => {
     });
     res.send(req.user.categories);
   } catch (error) {
-    res.status(500).send({ error: error.message });
+    res.status(500).send({ error });
+  }
+};
+
+const updateCategoryController = async (req, res) => {
+  const allowedUpdates = ["name", "color"];
+  const updates = Object.keys(req.body);
+  const isValidOperation = updates.every((update) =>
+    allowedUpdates.includes(update)
+  );
+
+  if (!isValidOperation) {
+    return res.status(400).send({
+      error: "Invalid updates",
+    });
+  } else {
+    try {
+      const category = await Category.findOne({
+        _id: req.params.id,
+        user: req.user._id,
+      });
+
+      if (!category) {
+        return res.status(404).send({
+          error: "Category not found!",
+        });
+      }
+
+      updates.forEach((update) => (category[update] = req.body[update]));
+      await category.save();
+
+      res.send(category);
+    } catch (error) {
+      res.status(500).send({ error });
+    }
   }
 };
 
@@ -37,13 +71,16 @@ const deleteCategoryController = async (req, res) => {
         error: "Category not found",
       });
     }
+
+    res.send(category);
   } catch (error) {
-    req.status(500).send({ error: error.message });
+    req.status(500).send({ error });
   }
 };
 
 module.exports = {
   createCategoryController,
   getAllCategoriesController,
+  updateCategoryController,
   deleteCategoryController,
 };
