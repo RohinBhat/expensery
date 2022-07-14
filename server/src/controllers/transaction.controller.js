@@ -106,6 +106,84 @@ const getTransactionsByMonthController = async (req, res) => {
   }
 };
 
+const getExpensesByYearController = async (req, res) => {
+  try {
+    const transaction = await Transaction.find({
+      year: req.params.year,
+      transactionType: "debit",
+      user: req.user._id,
+    });
+
+    if (!transaction) {
+      return res.status(404).send({
+        error: "Transaction not found!",
+      });
+    }
+    res.send(transaction);
+  } catch (error) {
+    res.status(500).send({ error });
+  }
+};
+
+const getExpensesByMonthController = async (req, res) => {
+  try {
+    const transaction = await Transaction.find({
+      month: req.params.month,
+      year: req.params.year,
+      transactionType: "debit",
+      user: req.user._id,
+    });
+
+    if (!transaction) {
+      return res.status(404).send({
+        error: "Transaction not found!",
+      });
+    }
+    res.send(transaction);
+  } catch (error) {
+    res.status(500).send({ error });
+  }
+};
+
+const getIncomesByYearController = async (req, res) => {
+  try {
+    const transaction = await Transaction.find({
+      year: req.params.year,
+      transactionType: "credit",
+      user: req.user._id,
+    });
+
+    if (!transaction) {
+      return res.status(404).send({
+        error: "Transaction not found!",
+      });
+    }
+    res.send(transaction);
+  } catch (error) {
+    res.status(500).send({ error });
+  }
+};
+
+const getIncomesByMonthController = async (req, res) => {
+  try {
+    const transaction = await Transaction.find({
+      month: req.params.month,
+      year: req.params.year,
+      transactionType: "credit",
+      user: req.user._id,
+    });
+
+    if (!transaction) {
+      return res.status(404).send({
+        error: "Transaction not found!",
+      });
+    }
+    res.send(transaction);
+  } catch (error) {
+    res.status(500).send({ error });
+  }
+};
+
 const updateTransactionController = async (req, res) => {
   const allowedUpdates = ["category", "amount", "transactionType"];
   const updates = Object.keys(req.body);
@@ -166,6 +244,10 @@ module.exports = {
   getTransactionsByCategoryController,
   getTransactionsByYearController,
   getTransactionsByMonthController,
+  getExpensesByYearController,
+  getExpensesByMonthController,
+  getIncomesByYearController,
+  getIncomesByMonthController,
   updateTransactionController,
   deleteTransactionController,
 };

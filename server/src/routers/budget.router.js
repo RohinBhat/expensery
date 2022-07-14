@@ -5,7 +5,6 @@ const {
   getBudgetsByMonthController,
   getBudgetsByYearController,
   getBudgetsByIdController,
-  updateBudgetByMonthController,
   updateBudgetByIdController,
   deleteBudgetController,
 } = require("../controllers/budget.controller");
@@ -18,7 +17,6 @@ router.get("/", auth, getAllBudgetsController);
 router.get("/month/:year/:month", auth, getBudgetsByMonthController);
 router.get("/year/:year", auth, getBudgetsByYearController);
 router.get("/:id", auth, getBudgetsByIdController);
-router.patch("/month/:year/:month", auth, updateBudgetByMonthController);
 router.patch("/:id", auth, updateBudgetByIdController);
 router.delete("/:id", auth, deleteBudgetController);
 

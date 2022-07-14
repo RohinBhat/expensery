@@ -27,6 +27,11 @@ const budgetSchema = new mongoose.Schema(
       required: true,
       min: 0,
     },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Category",
+    },
   },
   {
     timestamps: true,
