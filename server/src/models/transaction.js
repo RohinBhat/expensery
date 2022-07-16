@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 
+const date = new Date();
+const currentYear = date.getFullYear();
+
 const transactionSchema = new mongoose.Schema(
   {
     user: {
@@ -41,7 +44,7 @@ const transactionSchema = new mongoose.Schema(
       type: Number,
       required: true,
       min: 2016,
-      max: Date.now().year + 1,
+      max: currentYear + 1,
     },
   },
   {

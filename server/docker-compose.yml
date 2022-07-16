@@ -1,0 +1,20 @@
+version: "1"
+
+services:
+  api:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    links:
+      - db
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
+    driver: local
