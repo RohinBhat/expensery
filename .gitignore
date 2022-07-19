@@ -1,3 +1,4 @@
 server/node_modules
-server/dev.env
-server/prod.env
+server/config/dev.env
+server/config/prod.env
+server/config/config.js

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "env-cmd -f ./dev.env nodemon src/index.js",
-    "prod": "env-cmd -f ./prod.env nodemon src/index.js",
+    "dev": "env-cmd -f ./config/dev.env nodemon --legacy-watch src/index.js",
+    "prod": "env-cmd -f ./config/prod.env nodemon --legacy-watch src/index.js",
     "start": "node src/index.js"
   },
   "keywords": [],
@@ -19,6 +19,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.4.4",
     "morgan": "^1.10.0",
+    "swagger-jsdoc": "^6.2.1",
+    "swagger-ui-express": "^4.5.0",
     "validator": "^13.7.0"
   },
   "devDependencies": {
