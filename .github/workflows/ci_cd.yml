@@ -2,9 +2,9 @@ name: Install Node Dependencies, Build Docker Image, Push and Release a Docker c
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "testing" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "testing" ]
 
 jobs:
   node:
